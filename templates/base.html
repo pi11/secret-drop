@@ -59,11 +59,15 @@
 
     .logo {
       font-weight: 800;
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
+      font-size: 1rem;
+      letter-spacing: 0.16em;
       color: var(--accent);
       text-transform: uppercase;
-    }
+      }
+      .logo a {
+      text-decoration: none;
+      color: white;
+      }
 
     .logo span { color: var(--text-muted); font-weight: 400; }
 
@@ -236,7 +240,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">Secret<span>Drop</span></div>
+    <div class="logo"><a href="/">🔐 Secret <span>Drop</span></a></div>
   </header>
   {% block content %}{% endblock %}
 </div>

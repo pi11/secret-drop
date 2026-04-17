@@ -4,7 +4,7 @@ import re
 import os
 from datetime import datetime, timedelta
 from sanic import Sanic
-from sanic.response import html, redirect
+from sanic.response import html, redirect, text
 from jinja2 import Environment, FileSystemLoader
 from dotenv import load_dotenv
 
@@ -75,11 +75,13 @@ async def create(request):
         "one_time": True,
     }
     link = f"{request.scheme}://{request.host}/s/{slug}"
+    text_link = f"{request.scheme}://{request.host}/t/{slug}"
     tmpl = jinja.get_template("created.html")
-    return html(tmpl.render(link=link, slug=slug))
+    return html(tmpl.render(link=link, text_link=text_link, slug=slug))
 
 
-@app.get("/s/<slug>")
+@app.get("/t/<slug>", name="view_secret_t")
+@app.get("/s/<slug>", name="view_secret_s")
 async def view_secret(request, slug: str):
 
     purge_expired()
@@ -92,12 +94,14 @@ async def view_secret(request, slug: str):
     if is_bot(ua):
         return redirect("/bot")
 
-    text = entry["text"]
+    content = entry["text"]
     if entry.get("one_time"):
         del store[slug]
 
+    if request.path.split("/")[1] == "t":
+        return text(content)
     tmpl = jinja.get_template("secret.html")
-    return html(tmpl.render(text=text))
+    return html(tmpl.render(text=content))
 
 
 @app.get("/bot")
