@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}SecretDrop — link created{% endblock %}
+{% block content %}
+<h1>Link <em>ready.</em></h1>
+<p class="sub">Share it. Once opened, it's gone forever.</p>
+
+<div class="card">
+  <div class="label">Your one-time link</div>
+  <div class="link-box">
+    <span class="link-text" id="link">{{ link }}</span>
+    <button class="copy-btn" onclick="copyLink()">Copy</button>
+  </div>
+
+  <div class="notice warn" style="margin-top:1.25rem">
+    <span class="icon">⚡</span>
+    <span>This link <strong>self-destructs</strong> after the first view. Save it somewhere if you need it again. TTL: 24 hours.</span>
+  </div>
+
+  <div style="margin-top:1.5rem">
+    <a href="/" class="btn">New secret</a>
+  </div>
+</div>
+
+<script>
+function copyLink() {
+  const text = document.getElementById('link').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}SecretDrop — share a secret{% endblock %}
+{% block content %}
+<h1>Drop a <em>secret.</em></h1>
+<p class="sub">Paste anything. Get a one-time link. It's gone after the first read.</p>
+
+<div class="card">
+  <form action="/create" method="post">
+    <div class="label">Your secret</div>
+    <textarea name="secret" placeholder="Type or paste your secret here…" autofocus></textarea>
+    {% if error %}
+    <div class="error">⚠ {{ error }}</div>
+    {% endif %}
+    <div>
+      <button type="submit" class="btn">Generate link</button>
+    </div>
+  </form>
+</div>
+
+<div class="notice info" style="margin-top:1.5rem">
+  <span class="icon">ℹ</span>
+  <span>Link works <strong>once</strong> — the secret is deleted immediately after being viewed. All secrets expire after <strong>24 hours</strong> regardless.</span>
+  <hr />
+  <span>All secrets are stored in memory and could be deleted if servers restarts</span>
+</div>
+{% endblock %}

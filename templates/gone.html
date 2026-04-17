@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}SecretDrop — not found{% endblock %}
+{% block content %}
+<h1>Already <em>gone.</em></h1>
+<p class="sub">This secret doesn't exist — it was either never created, already read, or expired.</p>
+
+<div class="card">
+  <div class="notice warn">
+    <span class="icon">⚠</span>
+    <span>One-time secrets are deleted immediately after being viewed. Nothing to show here.</span>
+  </div>
+
+  <div style="margin-top:1.5rem">
+    <a href="/" class="btn">Drop a new secret</a>
+  </div>
+</div>
+{% endblock %}
